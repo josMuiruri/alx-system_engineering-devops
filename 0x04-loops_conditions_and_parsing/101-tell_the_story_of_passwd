@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
-# This script tells a story based on the contents of the `/etc/passwd` file
-myfile="/etc/passwd"
-f1=""
-f2=""
-f3=""
+# This script displays the contents of the /etc/passwd
 while IFS= read -r line
 do
-    f1="$(echo "$line" | cut -d":" -f1)"
-    f2="$(echo "$line" | cut -d":" -f4)"
-    f3="$(echo "$line" | cut -d":" -f6)"
-    f4="$(echo "$line" | cut -d":" -f7)"
-    f5="$(echo "$line" | cut -d":" -f3)"
-    f6="$(echo "$line" | cut -d":" -f2)"
-    f7="$(echo "$line" | cut -d":" -f5)"
-    echo "The user ${f1} is part of the ${f2} gang, lives in ${f3} and rides ${f4}. ${f5}'s place is protected by the passcode ${f6}, more info about the user here: ${f7}"
-done < "$myfile"
+    username=$(echo "$line" | cut -f 1 -d ':')
+    password=$(echo "$line" | cut -f 2 -d ':')
+    userID=$(echo "$line" | cut -f 3 -d ':')
+    groupID=$(echo "$line" | cut -f 4 -d ':')
+    userINFO=$(echo "$line" | cut -f 5 -d ':')
+    home=$(echo "$line" | cut -f 6 -d ':')
+    command=$(echo "$line" | cut -f 7 -d ':')
+    echo -n "The user $username is part of the $groupID gang, lives in $home and rides $command. $userID's place is protected by the passcode $password, more info about the user here: $userINFO"
+done < "/etc/passwd"
