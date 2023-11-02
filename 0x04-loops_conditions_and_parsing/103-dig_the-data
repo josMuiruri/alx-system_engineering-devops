@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-#This script parses Apache logs
-#Format: OCCURENCE_NUMBER IP HTTP_CODE
-awk -F' ' '{ print $1 " " $9 }' apache-access.log | sort | uniq -c | sort -nr
